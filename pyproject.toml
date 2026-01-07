@@ -1,0 +1,50 @@
+[project]
+name = "hydromancer-sdk"
+version = "0.1.0"
+description = "Hydromancer SDK - Enhanced Hyperliquid data access"
+readme = "README.md"
+requires-python = ">=3.11"
+license = "MIT"
+keywords = ["hyperliquid", "orderbook", "trading", "cryptocurrency", "websocket"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Office/Business :: Financial :: Investment",
+]
+dependencies = [
+    "aiohttp>=3.9.0",
+    "websockets>=12.0",
+    "zstandard>=0.22.0",
+    "msgpack>=1.0.0",
+    "sortedcontainers>=2.4.0",
+    "certifi>=2024.0.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0.0",
+    "pytest-asyncio>=0.21.0",
+]
+
+[project.scripts]
+hydromancer-stream = "hydromancer_sdk.orderbook.client:main"
+
+[project.urls]
+Homepage = "https://hydromancer.xyz"
+Documentation = "https://docs.hydromancer.xyz"
+Repository = "https://github.com/hydromancerxyz/hydromancer-sdk"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/hydromancer_sdk"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+asyncio_mode = "auto"
