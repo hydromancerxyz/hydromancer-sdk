@@ -292,16 +292,11 @@ class L4OrderbookClient(ValidationMixin):
                 raw_size = len(msg.data)
                 data = json.loads(msg.data)
 
-                if data.get("channel") == "l4BookUpdates":
+                if data.get("type") == "l4BookUpdates":
                     update = data["data"]
                     self._raw_bytes += raw_size
                     self._msg_count += 1
                     await self._update_queue.put((update, receive_time_ms))
-
-                elif "height" in data and "diffs" in data:
-                    self._raw_bytes += raw_size
-                    self._msg_count += 1
-                    await self._update_queue.put((data, receive_time_ms))
 
                 elif data.get("type") == "ping":
                     await ws.send_json({"method": "pong"})
